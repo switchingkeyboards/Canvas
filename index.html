@@ -1,59 +1,104 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Canvas</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Canvas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
         integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/style.css">
-    </head>
-    <body>
-        <div id="canvas-container">
-            <canvas id="canvas-real" class="canvas" width='1280px' height='720px'></canvas>
-            <canvas id="canvas-draft" class="canvas" width='1280px' height='720px'></canvas>
-        </div>
-        <div class="buttons">
-            <span class="btn btn-danger btn-lg fa fa-triangle" id="drawing-triangle">Drawing Triangle</span>
-            <span class="btn btn-success btn-lg fa fa-circle" id="drawing-circle">Drawing Circle</span>
-            <span class="btn btn-primary btn-lg fa fa-square" id="drawing-rectangle" >Drawing Rectangle</span>
-            <span class="btn btn-info btn-lg fa fa-paint-brush" id="drawing-line" >Drawing Line</span>
-            
-        </div>
-        <script type='text/javascript' src="https://code.jquery.com/jquery-3.2.1.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+<!-------------------- Loading ------------------------>        
+<div class="loader">
+    <img src="./img/loader.gif" alt="Loading..." height="20%"/>
+</div>
+    <div id="canvas-container">
+        <canvas id="canvas-real" class="canvas" width='1280px' height='720px'></canvas>
+        <canvas id="canvas-draft" class="canvas" width='1280px' height='720px'></canvas>
+    </div>
+<!---------------- Slider for changing stroke size/ width ----------------->
+    <div class="slidercontainer"> 
+        <div id="range">Stroke Size: 1<input type="range" id="myRange" value="10" min="1" max="100">100</div>
+    </div>
+    <div class="buttons">
+        <span class="btn btn-info btn-lg" id="eraser">Eraser</span>
+        <span class="btn btn-danger btn-lg fa fa-triangle" id="drawing-triangle">Drawing Triangle</span>
+        <span class="btn btn-success btn-lg fa fa-circle" id="drawing-circle">Drawing Circle</span>
+        <span class="btn btn-primary btn-lg fa fa-square" id="drawing-rectangle">Drawing Rectangle</span>
+        <span class="btn btn-info btn-lg fa fa-paint-brush" id="drawing-line">Drawing Line</span>
+        <span class="btn" id="grizz"><img src="./img/grizz.png" height="100px"></span>
+        <span class="btn" id="pan"><img src="./img/pan.png" height="100px"></span>
+        <span class="btn" id="ice"><img src="./img/ice.png" height="100px"></span>
+        <span class="btn" id="stack"><img src="./img/stack.png" height="100px"></span>
+
+    </div>
+    <script type='text/javascript' src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <script type='text/javascript' src="./js/canvas-common.js"></script>
+    <script type='text/javascript' src="./js/drawing-line.js"></script>
+    <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
+    <script type='text/javascript' src="./js/draw-circle.js"></script>
+    <script type='text/javascript' src="./js/drawing-triangle.js"></script>
+    <script type='text/javascript' src="./js/eraser.js"></script>
+    <script type='text/javascript' src="./js/stamp-image.js"></script>
+    <script type='text/javascript'>
+
+        currentFunction = new DrawingLine(contextReal, contextDraft);
+
+        $('#drawing-line').click(function () {
+            currentFunction = new DrawingLine(contextReal, contextDraft);
+        });
         
-        <script type='text/javascript' src="./js/canvas-common.js"></script>
-        <script type='text/javascript' src="./js/drawing-line.js"></script>
-        <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
-        <script type='text/javascript' src="./js/draw-circle.js"></script>
-        <script type='text/javascript' src="./js/drawing-triangle.js"></script>
-        <script type='text/javascript'>
+        $('#drawing-rectangle').click(function () {
+            currentFunction = new DrawingRectangle(contextReal, contextDraft);
+        });
 
-            currentFunction = new DrawingLine(contextReal,contextDraft);
-            
-            $('#drawing-line').click(function(){
-                currentFunction = new DrawingLine(contextReal,contextDraft);
-            });
-            $('#drawing-rectangle').click(function(){
-                currentFunction = new DrawingRectangle(contextReal,contextDraft);
-            });
+        $('#drawing-circle').click(function () {
+            currentFunction = new DrawingCircle(contextReal, contextDraft);
+        });
 
-            $('#drawing-circle').click(function(){
-                currentFunction = new DrawingCircle(contextReal,contextDraft);
-            });
+        $('#drawing-triangle').click(function () {
+            currentFunction = new DrawingTriangle(contextReal, contextDraft);
+        });
 
-            $('#drawing-triangle').click(function(){
-                currentFunction = new DrawingTriangle(contextReal,contextDraft);
-            });
+        $('#eraser').click(function(){
+            currentFunction = new Eraser(contextReal, contextDraft);
+        });
 
-            
-        </script>
-    </body>
+        $('#grizz').click(function(){
+            // console.log('stamping')
+            currentFunction = new StampGrizz(contextReal, contextDraft);
+        });
+
+        $('#pan').click(function(){
+            currentFunction = new StampPan(contextReal, contextDraft);
+        });
+
+        $('#ice').click(function(){
+            currentFunction = new StampIce(contextReal, contextDraft);
+        });
+
+        $('#stack').click(function(){
+            currentFunction = new StampStack(contextReal, contextDraft);
+        });
+    
+        // Loading //
+        window.addEventListener("load", function(){
+        const loader = document.querySelector(".loader");
+        loader.className += " hidden";
+        });
+    </script>
+</body>
+
 </html>
