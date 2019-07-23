@@ -2,7 +2,8 @@ class DrawingStraightLine extends PaintFunction{
     constructor(contextReal,contextDraft){
         super();
         this.contextReal = contextReal;
-        this.contextDraft = contextDraft;            
+        this.contextDraft = contextDraft;
+        
     }
     
     onMouseDown(coord,event){
@@ -10,8 +11,10 @@ class DrawingStraightLine extends PaintFunction{
         this.origY = coord[1];
     }
     onDragging(coord,event){
+        var size = document.getElementById("myRange"); //get slider size
+        var mySize = size.value;
+        this.contextDraft.lineWidth = mySize;
         this.contextDraft.strokeStyle = "green";
-        this.contextDraft.lineWidth = 5;
         this.contextDraft.beginPath();
         this.contextDraft.moveTo(this.origX,this.origY);
         this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
@@ -22,8 +25,10 @@ class DrawingStraightLine extends PaintFunction{
     onMouseMove(){}
     onMouseUp(coord){
         this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
+        var size = document.getElementById("myRange"); //get slider size
+        var mySize = size.value;
+        this.contextReal.lineWidth = mySize;
         this.contextReal.strokeStyle = "green";
-        this.contextReal.lineWidth = 5;
         this.contextReal.beginPath();
         this.contextReal.moveTo(this.origX,this.origY);
         this.contextReal.lineTo(coord[0],coord[1]);
