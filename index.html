@@ -23,17 +23,27 @@
             <span class="btn btn-success btn-lg fa fa-circle" id="drawing-circle">Drawing Circle</span>
             <span class="btn btn-primary btn-lg fa fa-square" id="drawing-rectangle" >Drawing Rectangle</span>
             <span class="btn btn-info btn-lg fa fa-paint-brush" id="drawing-line" >Drawing Line</span>
+            <span class="btn btn-info btn-lg fa fa-paint-brush" id="drawing-straightLine" >Straight Line</span>
+            <span class="btn btn-success btn-lg fa fa-circle" id="history-undo">Undo</span>
+            <span class="btn btn-success btn-lg fa fa-circle" id="history-redo">Redo</span>
             
         </div>
         <script type='text/javascript' src="https://code.jquery.com/jquery-3.2.1.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" >
+        </script>
+        
         <script type='text/javascript' src="./js/canvas-common.js"></script>
         <script type='text/javascript' src="./js/drawing-line.js"></script>
         <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
         <script type='text/javascript' src="./js/draw-circle.js"></script>
         <script type='text/javascript' src="./js/drawing-triangle.js"></script>
+        <script type='text/javascript' src="./js/drawing-straightLine.js"></script>
+        
+
+
         <script type='text/javascript'>
 
             currentFunction = new DrawingLine(contextReal,contextDraft);
@@ -53,7 +63,21 @@
                 currentFunction = new DrawingTriangle(contextReal,contextDraft);
             });
 
-            
+            $('#drawing-straightLine').click(function(){
+                currentFunction = new DrawingStraightLine(contextReal,contextDraft);
+
+            });
+            $('#drawing-straightLine').click(function(){
+                currentFunction = new DrawingStraightLine(contextReal,contextDraft);
+
+            });
+            $('#history-undo').click(undo);
+            $('#history-redo').click(redo);
+
+
+
         </script>
+
+        
     </body>
 </html>

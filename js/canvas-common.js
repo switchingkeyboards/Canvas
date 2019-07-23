@@ -50,4 +50,43 @@ class PaintFunction{
     onMouseUp(){}
     onMouseLeave(){}
     onMouseEnter(){}
-}
+};
+
+// History
+let history = [];
+let historyCounter = 1;
+
+var undo = function(){
+    historyCounter += 1;
+    // [a,b,c] || Current Index = 3 = c || previou Index = 1 = b || Previou Index = length(3) - 2 = 1 = b
+    let previouHistoryIndex = history.length - historyCounter;
+
+    if(previouHistoryIndex >= 0){
+        var newPic = new Image();
+        newPic.src = history[previouHistoryIndex];
+        newPic.onload = function(){ 
+            contextReal.clearRect( 0, 0,canvasDraft.width,canvasDraft.height);
+            contextReal.drawImage(newPic,0,0,canvasDraft.width,canvasDraft.height);
+        };
+
+    } else if (previouHistoryIndex < 0){
+        contextReal.clearRect( 0, 0,canvasDraft.width,canvasDraft.height);
+    };
+};
+
+var redo = function(){
+    historyCounter -= 1;
+    let previouHistoryIndex = history.length - historyCounter;
+
+    if(previouHistoryIndex >= 0){
+        var newPic = new Image();
+        newPic.src = history[previouHistoryIndex];
+        newPic.onload = function(){ 
+            contextReal.clearRect( 0, 0,canvasDraft.width,canvasDraft.height);
+            contextReal.drawImage(newPic,0,0,canvasDraft.width,canvasDraft.height);
+        };
+    };
+};
+
+
+
