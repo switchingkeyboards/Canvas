@@ -1,4 +1,4 @@
-class DrawingCircle extends PaintFunction{
+class DrawingEllipse extends PaintFunction{
     constructor(contextReal,contextDraft){
         super();
         this.contextReal = contextReal;
@@ -11,7 +11,6 @@ class DrawingCircle extends PaintFunction{
         this.contextDraft.lineWidth = mySize;
         this.contextReal.fillStyle = "white";
         this.contextReal.strokeStyle = "black";
-        // this.contextDraft.lineWidth = 5;
         this.origX = coord[0];
         this.origY = coord[1];
     }
@@ -19,11 +18,12 @@ class DrawingCircle extends PaintFunction{
     onDragging(coord,event){
         this.contextDraft.fillStyle = "white";
         this.contextDraft.strokeStyle = "black";
-        //this.contextReal.lineWidth = 5;
         this.contextDraft.beginPath();
         this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
         // this.contextDraft.clearRect(this.origX - coord[0]-this.origX/2 - 1, this.origY - coord[0]-this.origX/2 - 1, coord[0]-this.origX/2 * 2 + 2, coord[0]-this.origX/2 * 2 + 2);
-        this.contextDraft.arc(this.origX, this.origY, Math.abs(coord[1]-this.origY/2), 0, 2*Math.PI);
+        var radiusX = Math.abs(coord[0]-this.origX/2)
+        var radiusY = Math.abs(coord[1]-this.origY/2)
+        this.contextDraft.ellipse(this.origX, this.origY, radiusX, radiusY, Math.PI / 4, 0, 2 * Math.PI);
         this.contextDraft.fill();
         this.contextDraft.stroke();
     }
@@ -32,8 +32,10 @@ class DrawingCircle extends PaintFunction{
     onMouseUp(coord){
         this.contextReal.beginPath();
         this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
+        var radiusX = Math.abs(coord[0]-this.origX/2)
+        var radiusY = Math.abs(coord[1]-this.origY/2)
+        this.contextReal.ellipse(this.origX, this.origY, radiusX, radiusY, Math.PI / 4, 0, 2 * Math.PI);
         //this.contextDraft.clearRect(this.origX - coord[0]-this.origX/2 - 1, this.origY - coord[0]-this.origX/2 - 1, coord[0]-this.origX/2 * 2 + 2, coord[0]-this.origX/2 * 2 + 2);
-        this.contextReal.arc(this.origX, this.origY, Math.abs(coord[1]-this.origY/2), 0, 2*Math.PI);
         var size = document.getElementById("myRange"); //get slider size
         var mySize = size.value;
         this.contextReal.lineWidth = mySize;

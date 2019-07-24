@@ -6,25 +6,42 @@ class DrawingTriangle extends PaintFunction{
     }
     
     onMouseDown(coord,event){
-        // this.context.fillStyle = "white";
-        // this.context.strokeStyle = "black";
+     
         this.origX = coord[0];
         this.origY = coord[1];
-        this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
-        this.contextDraft.beginPath();
-        //this.contextDraft.moveTo(this.origX, this.origY);
-        console.log(this.origX, this.origY)
+        //this.contextDraft.beginPath();
+        // this.contextDraft.moveTo(this.origX, this.origY);
     }
     
     onDragging(coord,event){
         this.contextDraft.fillStyle = "white";
         this.contextDraft.strokeStyle = "black";
-        this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
         this.contextDraft.beginPath();
+        this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
+        // this.contextDraft.moveTo(this.origX, this.origY);
+        // this.contextDraft.lineTo(coord[0], coord[1]);
+        // this.contextDraft.lineTo(coord[0]*0.1, coord[1]*0.1);
+        var disX =  Math.abs(coord[0] - this.origX);
+        var disY =  Math.abs(coord[1] - this.origY);
+        var totalDis = disX+disY;
+        console.log(disX);
+
+        this.contextDraft.moveTo((coord[0]/2)+50,coord[1]/2);
+        this.contextDraft.lineTo((coord[0]/2),(coord[1]/2)-50);
+        this.contextDraft.lineTo((coord[0]/2)-50,coord[1]/2);
+
+        // path.moveTo((sWidth/2)+50,sHeight/2);
+        // path.lineTo((sWidth/2),(sHeight/2)-50);
+        // path.lineTo((sWidth/2)-50,sHeight/2);
         
-        this.contextDraft.moveTo(this.origX, this.origY);
-        this.contextDraft.lineTo(coord[0], coord[1]);
-        this.contextDraft.lineTo((coord[0]/2), coord[1]/2);
+        // var angle = ((Math.PI * 2) / 3);
+        // var radius = Math.abs(coord[1]-this.origY/2);
+        // this.contextDraft.moveTo(coord[0],coord[1]);
+            
+        //     this.contextDraft.lineTo(radius * Math.cos(angle * 1), radius * Math.sin(angle * 1));
+        //     this.contextDraft.lineTo(radius * Math.cos(angle * 2), radius * Math.sin(angle * 2));
+        //     this.contextDraft.lineTo(radius * Math.cos(angle * 3), radius * Math.sin(angle * 3));
+
         this.contextDraft.closePath();
         this.contextDraft.stroke();
         this.contextDraft.fill();
@@ -56,17 +73,18 @@ class DrawingTriangle extends PaintFunction{
     onMouseMove(){}
     onMouseUp(coord){
 
-        console.log(coord)
         this.contextReal.fillStyle = "white";
         this.contextReal.strokeStyle = "black";
-        this.contextReal.clearRect(0,0,canvasDraft.width,canvasDraft.height);
+        this.contextReal.beginPath();
+        //this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
         this.contextReal.moveTo(this.origX, this.origY);
         this.contextReal.lineTo(coord[0], coord[1]);
-        this.contextReal.lineTo((coord[0]/2), coord[1]/2);
+        this.contextReal.lineTo(coord[0]/2, coord[1]/2);
+
         this.contextReal.closePath();
         this.contextReal.stroke();
         this.contextReal.fill();
-
+        
     }
     onMouseLeave(){}
     onMouseEnter(){}

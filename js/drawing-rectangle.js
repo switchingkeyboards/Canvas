@@ -14,6 +14,9 @@ class DrawingRectangle extends PaintFunction{
     }
     onDragging(coord,event){
         //console.log(coord)
+        var size = document.getElementById("myRange"); //get slider size
+        var mySize = size.value;
+        this.contextDraft.lineWidth = mySize; 
         this.contextDraft.fillStyle = "white";
         this.contextDraft.strokeStyle = "black";
         this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
@@ -25,6 +28,9 @@ class DrawingRectangle extends PaintFunction{
     onMouseUp(coord){
         this.contextReal.fillStyle = "blue";
         this.contextReal.strokeStyle = "black";
+        var size = document.getElementById("myRange"); //get slider size
+        var mySize = size.value;
+        this.contextReal.lineWidth = mySize;
         this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
         this.contextReal.fillRect(this.origX,this.origY,coord[0]- this.origX,coord[1] - this.origY)
         this.contextReal.strokeRect(this.origX,this.origY,coord[0]- this.origX,coord[1] - this.origY)

@@ -21,23 +21,34 @@
     <img src="./img/loader.gif" alt="Loading..." height="20%"/>
 </div>
     <div id="canvas-container">
-        <canvas id="canvas-real" class="canvas" width='1280px' height='720px'></canvas>
+        
+        <canvas id="canvas-real" class="canvas" width='1280px' height='720px'><div id="canvas"></div></canvas>
         <canvas id="canvas-draft" class="canvas" width='1280px' height='720px'></canvas>
+        <!-- <div id="canvas" width='1280px' height='720px'></div> -->
     </div>
 <!---------------- Slider for changing stroke size/ width ----------------->
     <div class="slidercontainer"> 
         <div id="range">Stroke Size: 1<input type="range" id="myRange" value="10" min="1" max="100">100</div>
     </div>
     <div class="buttons">
+        <span class="btn">
+            <label for="file-upload"><img src="./img/upload.png" width="50px"></label>
+            <input id="file-upload" type="file" accept="image/*" capture style="display:none">
+        </span>
+        <span class="btn btn-dark btn-lg" id="drawing-ellipse">Ellipse</span>
+        <span class="btn btn-light btn-lg" id="curve">Curve</span>
         <span class="btn btn-info btn-lg" id="eraser">Eraser</span>
         <span class="btn btn-danger btn-lg fa fa-triangle" id="drawing-triangle">Drawing Triangle</span>
         <span class="btn btn-success btn-lg fa fa-circle" id="drawing-circle">Drawing Circle</span>
         <span class="btn btn-primary btn-lg fa fa-square" id="drawing-rectangle">Drawing Rectangle</span>
         <span class="btn btn-info btn-lg fa fa-paint-brush" id="drawing-line">Drawing Line</span>
+        <span class="btn btn-primary btn-lg" id="spray">Spray</span>
         <span class="btn" id="grizz"><img src="./img/grizz.png" height="100px"></span>
         <span class="btn" id="pan"><img src="./img/pan.png" height="100px"></span>
         <span class="btn" id="ice"><img src="./img/ice.png" height="100px"></span>
         <span class="btn" id="stack"><img src="./img/stack.png" height="100px"></span>
+        <span class="btn" id="baby"><img src="./img/baby.png" height="100px"></span>
+        <span class="btn" id="sleep"><img src="./img/sleep.png" height="100px"></span>
 
     </div>
     <script type='text/javascript' src="https://code.jquery.com/jquery-3.2.1.js"></script>
@@ -52,6 +63,9 @@
     <script type='text/javascript' src="./js/drawing-triangle.js"></script>
     <script type='text/javascript' src="./js/eraser.js"></script>
     <script type='text/javascript' src="./js/stamp-image.js"></script>
+    <script type='text/javascript' src="./js/drawing-polygon.js"></script>
+    <script type='text/javascript' src="./js/draw-ellipse.js"></script>
+    <script type='text/javascript' src="./js/upload-image.js"></script>
     <script type='text/javascript'>
 
         currentFunction = new DrawingLine(contextReal, contextDraft);
@@ -92,7 +106,30 @@
         $('#stack').click(function(){
             currentFunction = new StampStack(contextReal, contextDraft);
         });
-    
+
+        $('#baby').click(function(){
+            currentFunction = new StampBaby(contextReal, contextDraft);
+        });
+
+        $('#sleep').click(function(){
+            currentFunction = new StampSleep(contextReal, contextDraft);
+        });
+
+        $('#curve').click(function(){
+            console.log('curve');
+            currentFunction = new DrawingQuadraticCurve(contextReal, contextDraft);
+        });
+
+        $('#drawing-ellipse').click(function(){
+            currentFunction = new DrawingEllipse(contextReal, contextDraft);
+        });
+
+        $('#spray').click(function(){
+            currentFunction = new Spray(contextReal, contextDraft);
+        });
+
+        $('#file-upload').change(UploadImage);
+
         // Loading //
         window.addEventListener("load", function(){
         const loader = document.querySelector(".loader");

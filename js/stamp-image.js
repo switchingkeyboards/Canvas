@@ -25,6 +25,13 @@ class StampGrizz extends PaintFunction {
         //     console.log('sad')
         // }).bind(this);
     }
+    onDragging(coord, event){
+        var img = new Image();
+        img.src = './img/grizz.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 150, 150);
+        }
+    }
     onMouseUp() {}
 }
 
@@ -33,7 +40,6 @@ class StampPan extends PaintFunction {
         super();
         this.context = contextReal;
     }
-
     onMouseDown(coord, event) {
         var img = new Image();
         img.src = './img/pan.png';
@@ -41,7 +47,14 @@ class StampPan extends PaintFunction {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
-    onMouseUp() {}
+    onDragging(coord, event){
+        var img = new Image();
+        img.src = './img/pan.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 150, 150);
+        }
+    }
+    onMouseUp(){}
 }
 
 class StampIce extends PaintFunction {
@@ -50,6 +63,13 @@ class StampIce extends PaintFunction {
         this.context = contextReal;
     }
     onMouseDown(coord, event) {
+        var img = new Image();
+        img.src = './img/ice.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 150, 150);
+        }
+    }
+    onDragging(coord, event){
         var img = new Image();
         img.src = './img/ice.png';
         img.onload =  () => {  
@@ -69,6 +89,57 @@ class StampStack extends PaintFunction {
         img.src = './img/stack.png';
         img.onload =  () => {  
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
+        }
+    }
+    onDragging(coord, event){
+        var img = new Image();
+        img.src = './img/stack.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 150, 150);
+        }
+    }
+    onMouseUp() {}
+}
+
+class StampBaby extends PaintFunction {
+    constructor(contextReal) {
+        super();
+        this.context = contextReal;
+    }
+    onMouseDown(coord, event) {
+        var img = new Image();
+        img.src = './img/baby.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 170, 170);
+        }
+    }
+    onDragging(coord, event){
+        var img = new Image();
+        img.src = './img/baby.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 170, 170);
+        }
+    }
+    onMouseUp() {}
+}
+
+class StampSleep extends PaintFunction {
+    constructor(contextReal) {
+        super();
+        this.context = contextReal;
+    }
+    onMouseDown(coord, event) {
+        var img = new Image();
+        img.src = './img/sleep.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 160, 160);
+        }
+    }
+    onDragging(coord, event){
+        var img = new Image();
+        img.src = './img/sleep.png';
+        img.onload =  () => {  
+            this.context.drawImage(img, coord[0], coord[1], 160, 160);
         }
     }
     onMouseUp() {}

@@ -53,3 +53,25 @@ class PaintFunction{
     onMouseLeave(){}
     onMouseEnter(){}
 }
+
+var UploadImage = function(e){
+    var URL = window.URL;
+    var img = new Image();
+    img.src = URL.createObjectURL(e.target.files[0]);
+
+    img.onload = function() {
+    var canvas = document.getElementById("canvas-real");
+    var ctx = canvas.getContext("2d");
+    var imgSize = calculateAspectRatioFit(img.width, img.height, canvas.clientWidth, canvas.clientHeight);
+    ctx.drawImage(img, 0, 0, imgSize.width, imgSize.height);
+}
+function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+    var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+    var rtnWidth = srcWidth * ratio;
+    var rtnHeight = srcHeight * ratio;
+    return {
+        width: rtnWidth,
+        height: rtnHeight
+    };
+};
+}
