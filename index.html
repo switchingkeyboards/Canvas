@@ -45,6 +45,7 @@
         <span class="btn" id="pan"><img src="./img/pan.png" height="100px"></span>
         <span class="btn" id="ice"><img src="./img/ice.png" height="100px"></span>
         <span class="btn" id="stack"><img src="./img/stack.png" height="100px"></span>
+        <span class="btn btn-success btn-lg fa fa-circle" id="drawing-fill">Fill</span>
     </div>
 
     <script type='text/javascript' src="https://code.jquery.com/jquery-3.2.1.js"></script>
@@ -61,6 +62,8 @@
     <script type='text/javascript' src="./js/eraser.js"></script>
     <script type='text/javascript' src="./js/stamp-image.js"></script>
     <script type='text/javascript' src="./js/drawing-straightLine.js"></script>
+    <script type='text/javascript' src="./js/drawing-fillup.js"></script>
+
     <script type='text/javascript'>
 
     currentFunction = new DrawingLine(contextReal, contextDraft);
@@ -104,6 +107,9 @@
     $('#drawing-straightLine').click(function(){
             currentFunction = new DrawingStraightLine(contextReal,contextDraft);
 
+    });
+    $('#drawing-fill').click(function(){
+            currentFunction = new BucketFill(contextReal,contextDraft);
     });
     $('#history-undo').click(undo);
     $('#history-redo').click(redo);
