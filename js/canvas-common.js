@@ -50,4 +50,13 @@ class PaintFunction{
     onMouseUp(){}
     onMouseLeave(){}
     onMouseEnter(){}
+    getColour(){
+        return [this.selectedFillColour, this.selectedStrokeColour]
+    }
+    setFillColour(fill){
+      this.selectedFillColour = fill
+    }
+    setStrokeColour(stroke){
+      this.selectedStrokeColour = stroke
+    }
 }

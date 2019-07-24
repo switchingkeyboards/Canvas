@@ -1,10 +1,10 @@
 class DrawingTriangle extends PaintFunction{
     constructor(contextReal){
         super();
-        this.context = contextReal;   
-        // this.contextDraft = contextDraft;         
+        this.context = contextReal;
+        // this.contextDraft = contextDraft;
     }
-    
+
     onMouseDown(coord,event){
         this.context.strokeStyle = "black";
         this.context.beginPath();
@@ -18,7 +18,7 @@ class DrawingTriangle extends PaintFunction{
         this.context.stroke();
     }
     // onMouseDown(coord,event){
-        
+
     //     this.contextDraft.strokeStyle = "black";
     //     // this.contextReal.beginPath();
     //     // this.contextReal.moveTo(CoordX,CoordY);
@@ -27,11 +27,11 @@ class DrawingTriangle extends PaintFunction{
     // }
     // onDragging(coord,event){
     //     // this.contextDraft.fillStyle = "black";
-    //     this.contextDraft.strokeStyle = "black";        
+    //     this.contextDraft.strokeStyle = "black";
     //     this.contextDraft.lineTo(coord[0],coord[1]);
     //     this.contextDraft.lineTo(coord[1],coord[0]);
     //     this.contextDraft.closePath();
-        // this.contextReal.fill(); 
+        // this.contextReal.fill();
         // this.contextDraft.stroke();
         // this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
         // this.contextDraft.fill(this.origX,this.origY,coord[0]- this.origX,coord[1] - this.origY)
@@ -48,10 +48,10 @@ class DrawingTriangle extends PaintFunction{
         // this.contextReal.fill(this.origX,this.origY,coord[0]- this.origX,coord[1] - this.origY)
         // this.contextDraft.stroke(this.origX,this.origY,coord[0]- this.origX,coord[1] - this.origY)
         // this.contextDraft.closePath();
-        // this.contextReal.fill(); 
-        // this.contextDraft.stroke(); 
+        // this.contextReal.fill();
+        // this.contextDraft.stroke();
     //}
     onMouseLeave(){}
     onMouseEnter(){}
-    
+
 }

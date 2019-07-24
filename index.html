@@ -1,59 +1,223 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Canvas</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
-        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" 
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/style.css">
-    </head>
-    <body>
-        <div id="canvas-container">
-            <canvas id="canvas-real" class="canvas" width='1280px' height='720px'></canvas>
-            <canvas id="canvas-draft" class="canvas" width='1280px' height='720px'></canvas>
-        </div>
-        <div class="buttons">
-            <span class="btn btn-danger btn-lg fa fa-triangle" id="drawing-triangle">Drawing Triangle</span>
-            <span class="btn btn-success btn-lg fa fa-circle" id="drawing-circle">Drawing Circle</span>
-            <span class="btn btn-primary btn-lg fa fa-square" id="drawing-rectangle" >Drawing Rectangle</span>
-            <span class="btn btn-info btn-lg fa fa-paint-brush" id="drawing-line" >Drawing Line</span>
-            
-        </div>
-        <script type='text/javascript' src="https://code.jquery.com/jquery-3.2.1.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        
-        <script type='text/javascript' src="./js/canvas-common.js"></script>
-        <script type='text/javascript' src="./js/drawing-line.js"></script>
-        <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
-        <script type='text/javascript' src="./js/draw-circle.js"></script>
-        <script type='text/javascript' src="./js/drawing-triangle.js"></script>
-        <script type='text/javascript'>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Canvas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+<!-- Spectrum -->
+    <link rel='stylesheet' href='http://bgrins.github.io/spectrum/spectrum.css'/>
+  </head>
 
-            currentFunction = new DrawingLine(contextReal,contextDraft);
-            
-            $('#drawing-line').click(function(){
-                currentFunction = new DrawingLine(contextReal,contextDraft);
-            });
-            $('#drawing-rectangle').click(function(){
-                currentFunction = new DrawingRectangle(contextReal,contextDraft);
-            });
+  <body>
 
-            $('#drawing-circle').click(function(){
-                currentFunction = new DrawingCircle(contextReal,contextDraft);
-            });
+<!-- Use Bootstrap to structure app layout -->
+<!-- Top Title -->
+    <h1>fbi canvas</h1>
 
-            $('#drawing-triangle').click(function(){
-                currentFunction = new DrawingTriangle(contextReal,contextDraft);
-            });
+<!-- Left Toolbar -->
 
-            
-        </script>
-    </body>
+    <div class='d-flex flex-column shadow-lg toolbarLeft'>
+        <button class="btn btn-light active" id="drawing-line"><img src="assets/brush.png"></button>
+        <button class="btn btn-light"><img src="assets/eraser.png"></button>
+        <button class="btn btn-light"><img src="assets/paint.png"></button>
+        <button class="btn btn-light"><img src="assets/line.png"></button>
+        <button class="btn btn-light"><img src="assets/curve.png"></button>
+        <button class="btn btn-light" id="drawing-triangle"><img src="assets/triangle.png"></button>
+        <button class="btn btn-light" id="drawing-circle"><img src="assets/circle.png" ></button>
+        <button class="btn btn-light" id="drawing-rectangle"><img src="assets/square.png"></button>
+        <button class="btn btn-light"><img src="assets/text.png"></button>
+        <button class="btn btn-light" id="stampingButton">
+          <img src="assets/stamp.png" id="stamping">
+        </button>
+        <button class="btn btn-light"><img src="assets/undo.png"></button>
+        <button class="btn btn-light"><img src="assets/redo.png"></button>
+    </div>
+
+    <div id="collapseBar">
+      <div class='d-flex flex-row shadow-lg toolbarLeftExpand'>
+          <button class="btn btn-light"><img src="assets/grizz.png" id=""></button>
+          <button class="btn btn-light"><img src="assets/ice.png" id=""></button>
+          <button class="btn btn-light"><img src="assets/pan.png" id=""></button>
+          <button class="btn btn-light"><img src="assets/stack.png" id=""></button>
+      </div>
+    </div>
+
+<!-- Middle Canvas -->
+    <div>
+      <canvas id="canvas-real" class="canvas border rounded shadow-lg" width='900px' height='600px'></canvas>
+      <canvas id="canvas-draft" class="canvas border rounded shadow-lg" width='900px' height='600px'></canvas>
+    </div>
+
+<!-- Right Top Toolbar -->
+    <div class='d-flex flex-column shadow-lg toolbarRightTop'>
+      <input type='text' id="strokeSwatch" />
+      <p class="text-muted text-center font-weight-light">stroke</p>
+
+      <input type='text' id="fillSwatch" />
+      <p class="text-muted text-center font-weight-light">fill</p>
+
+      <input type="range" class="form-control-range" id="formControlRange">
+      <p class="text-muted text-center font-weight-light">brush size</p>
+
+    </div>
+
+<!-- Right Bottom Toolbar -->
+    <div class="d-flex flex-column shadow-lg toolbarRightBottom">
+      <button href="" class="btn btn-light" id="save"><img src="assets/save.png"></button>
+      <button class="btn btn-light"><img src="assets/trash.png" id="trash"></button>
+    </div>
+
+<!-- jQuery and BootStrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Spectrum JS -->
+    <script src='http://bgrins.github.io/spectrum/spectrum.js'></script>
+
+<!-- Feature JS Modules -->
+    <script type='text/javascript' src="./js/canvas-common.js"></script>
+    <script type='text/javascript' src="./js/drawing-line.js"></script>
+    <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
+    <script type='text/javascript' src="./js/draw-circle.js"></script>
+    <script type='text/javascript' src="./js/drawing-triangle.js"></script>
+    <script type='text/javascript'>
+
+
+// Button change to dark when active
+
+      $('.toolbarLeftExpand button').click(function(){
+        if ($(this).attr('class') == 'active') {
+          return;
+        } else {
+          $('.toolbarLeft button').removeClass('active')
+          $('.toolbarLeftExpand button').removeClass('active')
+          $(this).addClass('active');
+          $('#stampingButton').addClass('active');
+        };
+      });
+
+      $('.toolbarLeft button').click(function(){
+        $('#stampingButton img').attr('src', "assets/stamp.png"); // Change back to original stamp icon when choose other functions
+        if ($(this).attr('id') == 'stampingButton') {
+          return;
+        } else if ($(this).attr('class') == 'active') {
+          return;
+        } else {
+          $('.toolbarLeft button').removeClass('active')
+          $(this).addClass('active');
+          $('.toolbarLeftExpand button').removeClass('active')
+        };
+      });
+
+// Change stamp icon to selected
+
+      $('.toolbarLeftExpand img').click(function(){
+        console.log($(this).attr("src"));
+        $('#stampingButton img').attr('src', $(this).attr("src"));
+
+      });
+
+
+
+
+// Expand Stamp Toolbar on Hover
+
+      $('#collapseBar').hide();
+
+      $('#stampingButton').on('mouseleave', function(){
+        $('#collapseBar').on('mouseleave', function(){
+          $('#collapseBar').hide();
+        });
+      });
+
+      $('#collapseBar').on('mouseleave', function(){
+        $('#stampingButton').on('mouseleave', function(){
+          $('#collapseBar').hide();
+        });
+      });
+
+      $('#stampingButton').on('mouseenter', function(){
+        $('#collapseBar').show();
+      });
+
+      $('#collapseBar').on('mouseenter', function(){
+        $('#collapseBar').show();
+      });
+
+// Default Functions - All Black
+
+// Spectrum JS Colour Picker Initialization
+
+      $("#strokeSwatch").spectrum({
+      });
+
+      $("#fillSwatch").spectrum({
+      });
+
+
+// Default starting colours;
+
+      var selectedFillColour = "#000000";
+      var selectedStrokeColour = "#000000";
+
+
+// Store new selected colour when the swatches are updated
+
+      $("#strokeSwatch").on('change.spectrum', function(e, tinycolour) {
+        selectedStrokeColour = tinycolour.toHexString()
+        currentFunction.setStrokeColour(tinycolour.toHexString())
+
+        console.log('Current Stroke Colour: ' + currentFunction.getColour()[1])
+
+      });
+
+      $("#fillSwatch").on('change.spectrum', function(e, tinycolour) {
+        selectedFillColour = tinycolour.toHexString()
+        currentFunction.setFillColour(tinycolour.toHexString())
+
+        console.log('Current Fill Colour: ' + currentFunction.getColour()[0])
+        console.log(currentFunction.constructor.name);
+      });
+
+
+// Click buttons to activate various function modules
+
+      currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
+
+      console.log(currentFunction.constructor.name);
+
+
+      $('#drawing-line').click(function(){
+        currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
+      });
+
+      $('#drawing-rectangle').click(function(){
+        currentFunction = new DrawingRectangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+      });
+
+      $('#drawing-circle').click(function(){
+        currentFunction = new DrawingCircle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+      });
+
+      $('#drawing-triangle').click(function(){
+        currentFunction = new DrawingTriangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+      });
+
+      $('#save').click(function(e){
+         this.src = canvasReal.toDataURL();
+         window.location.href = this.src.replace('image/png', 'image/octet-stream');
+       });
+
+      $('#trash').click(function(){
+        contextReal.clearRect(0, 0, canvasDraft.width, canvasDraft.height);
+      });
+
+
+    </script>
+  </body>
 </html>

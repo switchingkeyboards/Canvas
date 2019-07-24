@@ -1,20 +1,90 @@
-.canvas{
-    border:5px black dotted;
-    position:absolute;
-    top:0px;
-    bottom:0px;
-    left:0px;
-    right:0px
+* {
+  border-radius: 0 !important;
 }
 
-#canvas-draft{
-    background-color: transparent;
+body {
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-body{
-    overflow:hidden;
+h1 {
+  position: absolute;
+  top: 30px;
+  left: 60px;
+  font-size: 50px;
+  font-weight: 200;
+  background: -webkit-linear-gradient(dodgerblue, cornflowerblue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-#canvas-container{
-    height:730px;
-}  
+.canvas {
+  position: absolute;
+  top: 120px;
+  left: 180px;
+  /* cursor: url('../assets/dot.jpg'), auto;
+  pointer-events: auto; */
+}
+
+#canvas-real {
+  background-color: white;
+}
+
+#canvas-draft {
+  background-color: transparent;
+}
+
+.toolbarLeft, .toolbarLeftExpand, .toolbarRightTop, .toolbarRightBottom {
+  width: 60px;
+  position: absolute;
+  top: 120px;
+}
+
+.toolbarLeft {
+  left: 60px;
+  z-index: 2;
+}
+
+.toolbarLeftExpand {
+  left: 120px;
+  top: 660px;
+  z-index: 1;
+}
+
+.toolbarRightTop {
+  left: 1140px;
+  padding: 10px 10px 0px 10px;
+}
+
+.toolbarRightBottom {
+  left: 1140px;
+  top: 600px;
+}
+
+button {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+button:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+button:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+img {
+  width: 30px;
+}
+
+#formControlRange {
+  -webkit-appearance: slider-vertical;
+  cursor: pointer;
+}
