@@ -1,223 +1,369 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Canvas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/style.css">
-<!-- Spectrum -->
-    <link rel='stylesheet' href='http://bgrins.github.io/spectrum/spectrum.css'/>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Canvas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./css/style.css">
+  <!-- Spectrum -->
+  <link rel='stylesheet' href='http://bgrins.github.io/spectrum/spectrum.css'/>
+</head>
 
-  <body>
+<body>
 
-<!-- Use Bootstrap to structure app layout -->
-<!-- Top Title -->
-    <h1>fbi canvas</h1>
+  <!-- Loading -->
+  <!-- <div class=“loader”>
+    <img src=“img/loader.gif” alt=“Loading...” height=“20%“/>
+  </div> -->
 
-<!-- Left Toolbar -->
+  <!-- Use Bootstrap to structure app layout -->
 
-    <div class='d-flex flex-column shadow-lg toolbarLeft'>
-        <button class="btn btn-light active" id="drawing-line"><img src="assets/brush.png"></button>
-        <button class="btn btn-light"><img src="assets/eraser.png"></button>
-        <button class="btn btn-light"><img src="assets/paint.png"></button>
-        <button class="btn btn-light"><img src="assets/line.png"></button>
-        <button class="btn btn-light"><img src="assets/curve.png"></button>
-        <button class="btn btn-light" id="drawing-triangle"><img src="assets/triangle.png"></button>
-        <button class="btn btn-light" id="drawing-circle"><img src="assets/circle.png" ></button>
-        <button class="btn btn-light" id="drawing-rectangle"><img src="assets/square.png"></button>
-        <button class="btn btn-light"><img src="assets/text.png"></button>
-        <button class="btn btn-light" id="stampingButton">
-          <img src="assets/stamp.png" id="stamping">
-        </button>
-        <button class="btn btn-light"><img src="assets/undo.png"></button>
-        <button class="btn btn-light"><img src="assets/redo.png"></button>
+  <!-- Top Title -->
+
+  <h1>fbi canvas</h1>
+  <div class="container toolTipContainer">
+    <h2 id="toolTip"></h2>
+    <h3 id="subToolTip"></h3>
+  </div>
+
+  <!-- Left Toolbar -->
+  <div class='d-flex flex-column shadow-lg toolbarLeft'>
+    <button name="Brush" class="btn btn-light active" id="drawing-line"><img src="assets/brush.png"></button>
+    <button name="Eraser" class="btn btn-light" id="eraser"><img src="assets/eraser.png"></button>
+    <button name="Fill" class="btn btn-light"><img src="assets/paint.png"></button>
+    <button name="Line" class="btn btn-light" id="drawing-straightline"><img src="assets/line.png"></button>
+    <button name="Curve" class="btn btn-light"><img src="assets/curve.png"></button>
+    <button name="Triangle" class="btn btn-light" id="drawing-triangle"><img src="assets/triangle.png"></button>
+    <button name="Circle" class="btn btn-light" id="drawing-circle"><img src="assets/circle.png" ></button>
+    <button name="Rectangle" class="btn btn-light" id="drawing-rectangle"><img src="assets/square.png"></button>
+    <button name="Text" class="btn btn-light"><img src="assets/text.png"></button>
+    <button name="Stamp" class="btn btn-light" id="stampingButton"><img src="assets/stamp.png" id="stamping"></button>
+    <button name="Spray" class="btn btn-light" id=""><img src="assets/spray.png" id="stamping"></button>
+    <button name="Image" class='btn btn-light'>
+      <label for='file-upload'><img src='assets/uploadImage.png'></label>
+      <input id='file-upload' type='file' accept='image/*' capture style='display:none'>
+    </button>
+
+  </div>
+
+  <div id="collapseBarCircle">
+    <div class='d-flex flex-row shadow-lg toolbarLeftExpand'>
+      <button class="btn btn-light" id="circle"><img src="assets/circle.png" ></button>
+      <button class="btn btn-light" id="ecllipse"><img src="assets/ellipse.png" ></button>
+    </div>
+  </div>
+
+  <div id="collapseBarStamp">
+    <div class='d-flex flex-row shadow-lg toolbarLeftExpand'>
+      <button class="btn btn-light" id="grizz"><img src="assets/grizz.png"></button>
+      <button class="btn btn-light" id="ice"><img src="assets/ice.png"></button>
+      <button class="btn btn-light" id="pan"><img src="assets/pan.png"></button>
+      <button class="btn btn-light" id="stack"><img src="assets/stack.png"></button>
+      <button class="btn btn-light" id="baby"><img src="img/baby.png"></button>
+      <button class="btn btn-light" id="sleep"><img src="img/sleep.png"></button>
+    </div>
+  </div>
+
+  <!-- Middle Canvas -->
+  <div>
+    <canvas id="canvas-real" class="canvas border rounded shadow-lg" width='900px' height='720px'></canvas>
+    <canvas id="canvas-draft" class="canvas border rounded shadow-lg" width='900px' height='720px'></canvas>
+  </div>
+
+  <!-- Right Top Toolbar -->
+  <div class='d-flex flex-column shadow-lg toolbarRightTop'>
+    <input type='text' id="strokeSwatch" />
+    <p class="text-muted text-center font-weight-light">stroke</p>
+
+    <input type='text' id="fillSwatch" />
+    <p class="text-muted text-center font-weight-light">fill</p>
+
+
+    <div class='d-flex flex-row'>
+      <input type="range" class="form-control-range" id="myRange" value="10" min="1" max="100">
+      <img src="assets/strokeWidth.png" id="rangeTriangle" alt="">
     </div>
 
-    <div id="collapseBar">
-      <div class='d-flex flex-row shadow-lg toolbarLeftExpand'>
-          <button class="btn btn-light"><img src="assets/grizz.png" id=""></button>
-          <button class="btn btn-light"><img src="assets/ice.png" id=""></button>
-          <button class="btn btn-light"><img src="assets/pan.png" id=""></button>
-          <button class="btn btn-light"><img src="assets/stack.png" id=""></button>
-      </div>
-    </div>
+    <p class="text-muted text-center font-weight-light">stroke width</p>
 
-<!-- Middle Canvas -->
-    <div>
-      <canvas id="canvas-real" class="canvas border rounded shadow-lg" width='900px' height='600px'></canvas>
-      <canvas id="canvas-draft" class="canvas border rounded shadow-lg" width='900px' height='600px'></canvas>
-    </div>
+  </div>
 
-<!-- Right Top Toolbar -->
-    <div class='d-flex flex-column shadow-lg toolbarRightTop'>
-      <input type='text' id="strokeSwatch" />
-      <p class="text-muted text-center font-weight-light">stroke</p>
+  <!-- Right Bottom Toolbar -->
+  <div class="d-flex flex-column shadow-lg toolbarRightBottom">
+    <button class="btn btn-light" id="history-undo"><img src="assets/undo.png"></button>
+    <button class="btn btn-light" id="history-redo"><img src="assets/redo.png"></button>
+    <button href="" class="btn btn-light" id="save"><img src="assets/save.png"></button>
+    <button class="btn btn-light"><img src="assets/trash.png" id="trash"></button>
+  </div>
 
-      <input type='text' id="fillSwatch" />
-      <p class="text-muted text-center font-weight-light">fill</p>
+  <!-- jQuery and BootStrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-      <input type="range" class="form-control-range" id="formControlRange">
-      <p class="text-muted text-center font-weight-light">brush size</p>
+  <!-- Spectrum JS -->
+  <script src='http://bgrins.github.io/spectrum/spectrum.js'></script>
 
-    </div>
+  <!-- Feature JS Modules -->
+  <script type='text/javascript' src="./js/canvas-common.js"></script>
+  <script type='text/javascript' src="./js/drawing-line.js"></script>
+  <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
+  <script type='text/javascript' src="./js/draw-circle.js"></script>
+  <script type='text/javascript' src="./js/drawing-triangle.js"></script>
+  <script type='text/javascript' src="./js/eraser.js"></script>
+  <script type='text/javascript' src="./js/stamp-image.js"></script>
+  <script type='text/javascript' src="./js/drawing-straightLine.js"></script>
+  <script type='text/javascript' src="./js/drawing-fillup.js"></script>
 
-<!-- Right Bottom Toolbar -->
-    <div class="d-flex flex-column shadow-lg toolbarRightBottom">
-      <button href="" class="btn btn-light" id="save"><img src="assets/save.png"></button>
-      <button class="btn btn-light"><img src="assets/trash.png" id="trash"></button>
-    </div>
+<!-- ======================================================================= -->
+<!-- ======================================================================= -->
+<!-- ======================================================================= -->
+<!-- ======================================================================= -->
+<!-- ======================================================================= -->
+<!-- ======================================================================= -->
 
-<!-- jQuery and BootStrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type='text/javascript'>
 
-<!-- Spectrum JS -->
-    <script src='http://bgrins.github.io/spectrum/spectrum.js'></script>
+// Loading Screen
+  window.addEventListener("load", function(){
+    const loader = document.querySelector(".loader");
+    loader.className += " hidden";
+  });
 
-<!-- Feature JS Modules -->
-    <script type='text/javascript' src="./js/canvas-common.js"></script>
-    <script type='text/javascript' src="./js/drawing-line.js"></script>
-    <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
-    <script type='text/javascript' src="./js/draw-circle.js"></script>
-    <script type='text/javascript' src="./js/drawing-triangle.js"></script>
-    <script type='text/javascript'>
+//Tooltip Functionality
 
+  $('.toolbarLeft button').hover(function(){
+    $('#toolTip').html($(this).attr('name'));
+  })
+
+  $('.toolbarLeftExpand button').hover(function(){
+    $('#subToolTip').html($(this).attr('id'));
+  })
+
+  $('.toolbarLeftExpand button').mouseleave(function(){
+    $('.toolbarLeft button').mouseenter(function(){
+      $('#subToolTip').html('');
+    })
+  })
+
+  $('.toolbarLeftExpand').mouseleave(function(){
+    $('#toolTip').html('')
+    $('#subToolTip').html('')
+  })
 
 // Button change to dark when active
 
-      $('.toolbarLeftExpand button').click(function(){
-        if ($(this).attr('class') == 'active') {
-          return;
-        } else {
-          $('.toolbarLeft button').removeClass('active')
-          $('.toolbarLeftExpand button').removeClass('active')
-          $(this).addClass('active');
-          $('#stampingButton').addClass('active');
-        };
-      });
+  $('.toolbarLeftExpand button').click(function(){
+    if ($(this).attr('class') == 'active') {
+      return;
+    } else {
+      $('.toolbarLeft button').removeClass('active')
+      $('.toolbarLeftExpand button').removeClass('active')
+      $(this).addClass('active');
 
-      $('.toolbarLeft button').click(function(){
-        $('#stampingButton img').attr('src', "assets/stamp.png"); // Change back to original stamp icon when choose other functions
-        if ($(this).attr('id') == 'stampingButton') {
-          return;
-        } else if ($(this).attr('class') == 'active') {
-          return;
-        } else {
-          $('.toolbarLeft button').removeClass('active')
-          $(this).addClass('active');
-          $('.toolbarLeftExpand button').removeClass('active')
-        };
-      });
+      if ($(this).parent().parent().attr('id') == 'collapseBarCircle') {
+
+        $('#drawing-circle').addClass('active')
+
+      } else if ($(this).parent().parent().attr('id') == 'collapseBarStamp') {
+
+        $('#stampingButton').addClass('active')
+      }
+    };
+  });
+
+  $('.toolbarLeft button').click(function(){
+    $('#stampingButton img').attr('src', "assets/stamp.png"); // Change back to original stamp icon when choose other functions
+    if ($(this).attr('id') == 'stampingButton') {
+      return;
+    } else if ($(this).attr('class') == 'active') {
+      return;
+    } else {
+      $('.toolbarLeft button').removeClass('active')
+      $(this).addClass('active');
+      $('.toolbarLeftExpand button').removeClass('active')
+    };
+  });
 
 // Change stamp icon to selected
 
-      $('.toolbarLeftExpand img').click(function(){
-        console.log($(this).attr("src"));
-        $('#stampingButton img').attr('src', $(this).attr("src"));
+  $('#collapseBarStamp img').click(function(){
+    $('#stampingButton img').attr('src', $(this).attr("src"));
 
-      });
+  });
 
-
+  $('#collapseBarCircle img').click(function(){
+    $('#drawing-circle img').attr('src', $(this).attr("src"));
+  });
 
 
 // Expand Stamp Toolbar on Hover
 
-      $('#collapseBar').hide();
+// Default hide all peripheral toolbars
+  $('#collapseBarStamp').hide();
+  $('#collapseBarCircle').hide();
 
-      $('#stampingButton').on('mouseleave', function(){
-        $('#collapseBar').on('mouseleave', function(){
-          $('#collapseBar').hide();
-        });
-      });
+// Appear when hover over designated main buttons
+  $('#stampingButton').on('mouseenter', function(){
+    $('#collapseBarStamp').show();
+  });
 
-      $('#collapseBar').on('mouseleave', function(){
-        $('#stampingButton').on('mouseleave', function(){
-          $('#collapseBar').hide();
-        });
-      });
+  $('#drawing-circle').on('mouseenter', function(){
+    $('#collapseBarCircle').show();
+  });
 
-      $('#stampingButton').on('mouseenter', function(){
-        $('#collapseBar').show();
-      });
+// Stays shown when using the toolbar
+  $('#collapseBarStamp').on('mouseenter', function(){
+    $('#collapseBarStamp').show();
+  });
 
-      $('#collapseBar').on('mouseenter', function(){
-        $('#collapseBar').show();
-      });
+  $('#collapseBarCircle').on('mouseenter', function(){
+    $('#collapseBarCircle').show();
+  });
 
-// Default Functions - All Black
+// User can hide the toolbars by two ways:
+// 1) When mouse leaves the toolbar
+
+  $('#stampingButton').on('mouseleave', function(){
+    $('#collapseBarStamp').hide();
+  });
+
+  $('#drawing-circle').on('mouseleave', function(){
+    $('#collapseBarCircle').hide();
+  });
+
+// 2) When mouse moves from the toolbar to the main button
+
+  $('#collapseBarStamp').on('mouseleave', function(){
+    $('#collapseBarStamp').hide();
+  });
+
+  $('#collapseBarCircle').on('mouseleave', function(){
+    $('#collapseBarCircle').hide();
+  });
+
+
+
+
+
+
+
+
+
 
 // Spectrum JS Colour Picker Initialization
 
-      $("#strokeSwatch").spectrum({
-      });
+  $("#strokeSwatch").spectrum({
+  });
 
-      $("#fillSwatch").spectrum({
-      });
-
+  $("#fillSwatch").spectrum({
+  });
 
 // Default starting colours;
 
-      var selectedFillColour = "#000000";
-      var selectedStrokeColour = "#000000";
-
+  var selectedFillColour = "#000000";
+  var selectedStrokeColour = "#000000";
 
 // Store new selected colour when the swatches are updated
 
-      $("#strokeSwatch").on('change.spectrum', function(e, tinycolour) {
-        selectedStrokeColour = tinycolour.toHexString()
-        currentFunction.setStrokeColour(tinycolour.toHexString())
+  $("#strokeSwatch").on('change.spectrum', function(e, tinycolour) {
+    selectedStrokeColour = tinycolour.toHexString()
+    currentFunction.setStrokeColour(selectedStrokeColour)
+    // console.log('Current Stroke Colour: ' + currentFunction.getColour()[1])
+  });
 
-        console.log('Current Stroke Colour: ' + currentFunction.getColour()[1])
+  $("#fillSwatch").on('change.spectrum', function(e, tinycolour) {
+    selectedFillColour = tinycolour.toHexString()
+    currentFunction.setFillColour(selectedFillColour)
+    // console.log('Current Fill Colour: ' + currentFunction.getColour()[0])
+    // console.log(currentFunction.constructor.name);
+  });
 
-      });
-
-      $("#fillSwatch").on('change.spectrum', function(e, tinycolour) {
-        selectedFillColour = tinycolour.toHexString()
-        currentFunction.setFillColour(tinycolour.toHexString())
-
-        console.log('Current Fill Colour: ' + currentFunction.getColour()[0])
-        console.log(currentFunction.constructor.name);
-      });
-
+// Store new line width
+  $("#myRange").click(function(){
+    selectedLineWidth = document.getElementById("myRange").value
+    currentFunction.setLineWidth(selectedLineWidth)
+  });
 
 // Click buttons to activate various function modules
+  currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
+  // console.log(currentFunction.constructor.name);
+  $('#drawing-line').click(function(){
+    currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
+  });
 
-      currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
+  $('#drawing-straightline').click(function(){
+    currentFunction = new DrawingStraightLine(contextReal, contextDraft, selectedStrokeColour);
+  });
 
-      console.log(currentFunction.constructor.name);
+  $('#drawing-rectangle').click(function(){
+    currentFunction = new DrawingRectangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+  });
+
+  $('#drawing-circle').click(function(){
+    currentFunction = new DrawingCircle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+  });
+
+  $('#drawing-triangle').click(function(){
+    currentFunction = new DrawingTriangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+  });
+
+  $('#eraser').click(function(){
+    currentFunction = new Eraser(contextReal, contextDraft);
+  });
+
+  $('#grizz').click(function(){
+    // console.log('stamping')
+    currentFunction = new StampGrizz(contextReal, contextDraft);
+  });
+
+  $('#pan').click(function(){
+    currentFunction = new StampPan(contextReal, contextDraft);
+  });
+
+  $('#ice').click(function(){
+    currentFunction = new StampIce(contextReal, contextDraft);
+  });
+
+  $('#stack').click(function(){
+    currentFunction = new StampStack(contextReal, contextDraft);
+  });
+
+  $('#baby').click(function(){
+    currentFunction = new StampBaby(contextReal, contextDraft);
+  });
+
+  $('#sleep').click(function(){
+    currentFunction = new StampSleep(contextReal, contextDraft);
+  });
+
+  $('#drawing-straightLine').click(function(){
+    currentFunction = new DrawingStraightLine(contextReal,contextDraft);
+  });
+
+  $('#drawing-fill').click(function(){
+    currentFunction = new BucketFill(contextReal,contextDraft);
+  });
+
+  $('#file-upload').change(UploadImage);
+
+  $('#history-undo').click(undo);
+
+  $('#history-redo').click(redo);
+
+  $('#save').click(function(e){
+    this.src = canvasReal.toDataURL();
+    window.location.href = this.src.replace('image/png', 'image/octet-stream');
+  });
+
+  $('#trash').click(function(){
+    contextReal.clearRect(0, 0, canvasDraft.width, canvasDraft.height);
+  });
 
 
-      $('#drawing-line').click(function(){
-        currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
-      });
-
-      $('#drawing-rectangle').click(function(){
-        currentFunction = new DrawingRectangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
-      });
-
-      $('#drawing-circle').click(function(){
-        currentFunction = new DrawingCircle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
-      });
-
-      $('#drawing-triangle').click(function(){
-        currentFunction = new DrawingTriangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
-      });
-
-      $('#save').click(function(e){
-         this.src = canvasReal.toDataURL();
-         window.location.href = this.src.replace('image/png', 'image/octet-stream');
-       });
-
-      $('#trash').click(function(){
-        contextReal.clearRect(0, 0, canvasDraft.width, canvasDraft.height);
-      });
-
-
-    </script>
-  </body>
+  </script>
+</body>
 </html>

@@ -2,6 +2,41 @@
   border-radius: 0 !important;
 }
 
+.loader {
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #f4f9ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader.hidden  {
+  animation: fadeOut 5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+body, html {
+  cursor: default;
+  cursor: url(../img/g-hand.png) 2 2, default !important;
+}
+
+.btn:hover {
+  cursor: default;
+  cursor: url(../img/p-hand.png), default !important;
+}
+
 body {
   background-image: url('../assets/background.jpg');
   background-size: cover;
@@ -15,6 +50,32 @@ h1 {
   font-size: 50px;
   font-weight: 200;
   background: -webkit-linear-gradient(dodgerblue, cornflowerblue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.toolTipContainer {
+  text-align: right;
+  position: absolute;
+  left: 78px;
+  top: 36px;
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: 300;
+  background: -webkit-linear-gradient(grey, dimgrey);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h3 {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text: 100px;
+  background: -webkit-linear-gradient(grey, dimgrey);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -35,20 +96,32 @@ h1 {
   background-color: transparent;
 }
 
-.toolbarLeft, .toolbarLeftExpand, .toolbarRightTop, .toolbarRightBottom {
+.toolbarLeftExpand, .toolbarRightTop, .toolbarRightBottom {
   width: 60px;
   position: absolute;
   top: 120px;
+  z-index: 2;
 }
 
 .toolbarLeft {
+  width: 60px;
+  position: absolute;
+  top: 120px;
   left: 60px;
   z-index: 2;
 }
 
-.toolbarLeftExpand {
+#collapseBarCircle {
+  position: absolute;
   left: 120px;
-  top: 660px;
+  top: 360px;
+  z-index: 1;
+}
+
+#collapseBarStamp {
+  position: absolute;
+  left: 120px;
+  top: 540px;
   z-index: 1;
 }
 
@@ -65,7 +138,6 @@ h1 {
 button {
   width: 60px;
   height: 60px;
-  cursor: pointer;
 }
 
 button:active {
@@ -84,7 +156,12 @@ img {
   width: 30px;
 }
 
-#formControlRange {
+#myRange {
   -webkit-appearance: slider-vertical;
-  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#rangeTriangle {
+  padding-left: 10px;
+  margin-bottom: 10px;
 }

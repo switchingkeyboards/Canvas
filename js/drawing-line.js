@@ -7,8 +7,9 @@ class DrawingLine extends PaintFunction{
 
     onMouseDown(coord,event){
         this.context.strokeStyle = this.selectedStrokeColour;
+        this.context.lineWidth = this.selectedLineWidth; //change size when slider value change
         this.context.lineJoin = "round";
-        this.context.lineWidth = 5;
+        this.context.lineCap = "round"; // Smooth when draw thick line (end of lines are rounded)
         this.context.beginPath();
         this.context.moveTo(coord[0],coord[1]);
         this.draw(coord[0],coord[1]);
@@ -17,8 +18,10 @@ class DrawingLine extends PaintFunction{
         this.draw(coord[0],coord[1]);
     }
 
-    onMouseMove(){}
-    onMouseUp(){}
+    onMouseUp(coord){
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
     onMouseLeave(){}
     onMouseEnter(){}
 
