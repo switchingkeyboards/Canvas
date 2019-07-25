@@ -16,7 +16,7 @@
 }
 
 .loader.hidden  {
-  animation: fadeOut 5s;
+  animation: fadeOut 2s;
   animation-fill-mode: forwards;
 }
 
@@ -48,7 +48,15 @@ body {
   background-attachment: fixed;
 }
 
-h1 {
+.logo img{
+  position: absolute;
+  top: 10px;
+  left: 60px;
+  height: auto;
+  width: 300px;
+}
+
+/* h1 {
   position: absolute;
   top: 30px;
   left: 60px;
@@ -57,7 +65,7 @@ h1 {
   background: -webkit-linear-gradient(dodgerblue, cornflowerblue);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
+} */
 
 .toolTipContainer {
   text-align: right;
