@@ -9,11 +9,7 @@ class DrawingStraightLine extends PaintFunction{
     onMouseDown(coord,event){
         this.origX = coord[0];
         this.origY = coord[1];
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 771058d9949a7b42e4222f3fd4b89bbafd0ff3cb
     }
     onDragging(coord,event){
         this.contextDraft.beginPath();
@@ -31,11 +27,7 @@ class DrawingStraightLine extends PaintFunction{
         this.contextReal.beginPath();
         this.contextReal.strokeStyle = this.selectedStrokeColour;
         this.contextReal.lineWidth = this.selectedLineWidth;
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 771058d9949a7b42e4222f3fd4b89bbafd0ff3cb
         this.contextReal.moveTo(this.origX,this.origY);
         this.contextReal.lineTo(coord[0],coord[1]);
         this.contextReal.stroke();
