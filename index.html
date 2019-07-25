@@ -17,7 +17,7 @@
   <!-- Loading -->
   <div class="loader">
     <img src="./img/loader.gif" alt="Loading..." width="150%"/>
-</div>
+  </div>
 
   <!-- Use Bootstrap to structure app layout -->
 
@@ -35,11 +35,14 @@
     <button name="Eraser" class="btn btn-light" id="eraser"><img src="assets/eraser.png"></button>
     <button name="Fill" class="btn btn-light"><img src="assets/paint.png"></button>
     <button name="Line" class="btn btn-light" id="drawing-straightline"><img src="assets/line.png"></button>
-    <button name="Curve" class="btn btn-light"><img src="assets/curve.png"></button>
+    <button name="Curve" class="btn btn-light" id="drawing-curve"><img src="assets/curve.png"></button>
     <button name="Triangle" class="btn btn-light" id="drawing-triangle"><img src="assets/triangle.png"></button>
     <button name="Circle" class="btn btn-light" id="drawing-circle"><img src="assets/circle.png" ></button>
     <button name="Rectangle" class="btn btn-light" id="drawing-rectangle"><img src="assets/square.png"></button>
-    <button name="Text" class="btn btn-light"><img src="assets/text.png"></button>
+    <button name="Text" class="btn btn-light" id="addText"><img src="assets/text.png"></button>
+
+    <input type="text" name="" value="" placeholder="type your text here" id="addTextInput">
+
     <button name="Stamp" class="btn btn-light" id="stampingButton"><img src="assets/stamp.png" id="stamping"></button>
     <button name="Spray" class="btn btn-light" id="spray"><img src="assets/spray.png"></button>
     <button name="Image" class='btn btn-light'>
@@ -87,7 +90,7 @@
       <img src="assets/strokeWidth.png" id="rangeTriangle" alt="">
     </div>
 
-    <p class="text-muted text-center font-weight-light">stroke width</p>
+    <p class="text-muted text-center font-weight-light" id="sliderText">stroke width</p>
 
   </div>
 
@@ -95,8 +98,15 @@
   <div class="d-flex flex-column shadow-lg toolbarRightBottom">
     <button class="btn btn-light" id="history-undo"><img src="assets/undo.png"></button>
     <button class="btn btn-light" id="history-redo"><img src="assets/redo.png"></button>
-    <button href="" class="btn btn-light" id="save"><img src="assets/save.png"></button>
+    <button href="" class="btn btn-light " id="save"><img src="assets/save.png"></button>
     <button class="btn btn-light"><img src="assets/trash.png" id="trash"></button>
+  </div>
+
+  <div>
+    <input type="range" class="form-control-range" id="cpXSlider" value="450" min="0" max="900">
+    <p class="text-muted text-center font-weight-light" id="cpXSliderText">control point X</p>
+    <input type="range" class="form-control-range" id="cpYSlider" value="360" min="0" max="720">
+    <p class="text-muted text-center font-weight-light" id="cpYSliderText">control point Y</p>
   </div>
 
   <!-- jQuery and BootStrap JS -->
@@ -110,6 +120,7 @@
   <script type='text/javascript' src="./js/canvas-common.js"></script>
   <script type='text/javascript' src="./js/drawing-line.js"></script>
   <script type='text/javascript' src="./js/drawing-rectangle.js"></script>
+  <script type='text/javascript' src="./js/drawing-curve.js"></script>
   <script type='text/javascript' src="./js/draw-circle.js"></script>
   <script type='text/javascript' src="./js/drawing-triangle.js"></script>
   <script type='text/javascript' src="./js/eraser.js"></script>
@@ -117,6 +128,7 @@
   <script type='text/javascript' src="./js/drawing-straightLine.js"></script>
   <script type='text/javascript' src="./js/drawing-fillup.js"></script>
   <script type='text/javascript' src="./js/draw-ellipse.js"></script>
+  <script type='text/javascript' src="./js/text.js"></script>
 
 <!-- ======================================================================= -->
 <!-- ======================================================================= -->
@@ -126,11 +138,7 @@
 <!-- ======================================================================= -->
 
   <script type='text/javascript'>
-  // Loading //
-    window.addEventListener('load', function(){
-    const loader = document.querySelector(".loader");
-    loader.className += " hidden";
-  });
+
 
 //Tooltip Functionality
 
@@ -152,6 +160,11 @@
     $('#toolTip').html('')
     $('#subToolTip').html('')
   })
+
+  // if (currentFunction.constructor.name == "addText") {
+  //   $('#sliderText').html('font size');
+  // };
+
 
 // Button change to dark when active
 
@@ -187,15 +200,61 @@
     };
   });
 
-// Change stamp icon to selected
+  $('#addTextInput').on('click', function(){
+    $('.toolbarLeft button').removeClass('active')
+    $('#addText').addClass('active');
+  });
 
-  $('#collapseBarStamp img').click(function(){
-    $('#stampingButton img').attr('src', $(this).attr("src"));
+// Text input field appear on hover
+
+  $('#addTextInput').hide();
+  $('#cpXSlider').hide();
+  $('#cpYSlider').hide();
+  $('#cpXSliderText').hide();
+  $('#cpYSliderText').hide();
+
+  $('#drawing-curve').on('click', function(){
+    $('#cpXSlider').show();
+    $('#cpYSlider').show();
+    $('#cpXSliderText').show();
+    $('#cpYSliderText').show();
+  });
+
+  $('.toolbarLeft button, .toolbarLeftExpand button').not('#drawing-curve').on('click', function(){
+    $('#cpXSlider').hide();
+    $('#cpYSlider').hide();
+    $('#cpXSliderText').hide();
+    $('#cpYSliderText').hide();
+  });
+
+
+
+
+  $('#addText').on('mouseenter', function(){
+    $('#addTextInput').show();
+  });
+
+  $('#addText').on('mouseleave', function(){
+    $('#addTextInput').hide();
+  });
+
+  $('#addTextInput').on('mouseenter', function(){
+    $('#addTextInput').show();
+  });
+
+  $('#addTextInput').on('mouseleave', function(){
+    $('#addTextInput').hide();
+  });
+
+// Change stamp icon to selected stamp
+
+  $('#collapseBarStamp button').click(function(){
+    $('#stampingButton img').attr('src', $(this).children().attr("src"));
 
   });
 
-  $('#collapseBarCircle img').click(function(){
-    $('#drawing-circle img').attr('src', $(this).attr("src"));
+  $('#collapseBarCircle button').click(function(){
+    $('#drawing-circle img').attr('src', $(this).children().attr("src"));
   });
 
 
@@ -259,7 +318,6 @@
     showButtons: false,
     showPalette: true,
     showSelectionPalette: true,
-    showAlpha: true,
     palette: [ ],
     localStorageKey: "spectrum.homepage"
   });
@@ -269,7 +327,6 @@
    showPalette: true,
    showSelectionPalette: true,
    disabled: true,
-   showAlpha: true,
    palette: [ ],
    localStorageKey: "spectrum.homepage"
   });
@@ -310,11 +367,35 @@
 
 
 
-// Store new line width
+// Store new line width when click, and on document ready
+
+
+
+  $(document).ready(function(){
+    selectedLineWidth = $('#myRange').val()
+    currentFunction.setLineWidth(selectedLineWidth)
+    selectedCpX = $('#cpXSlider').val()
+    selectedCpY = $('#cpYSlider').val()
+    console.log(selectedCpX, selectedCpY)
+    currentFunction.setControlPointX(selectedCpX)
+    currentFunction.setControlPointY(selectedCpY)
+  });
+
   $("#myRange").click(function(){
-    selectedLineWidth = document.getElementById("myRange").value
+    selectedLineWidth = $(this).val()
     currentFunction.setLineWidth(selectedLineWidth)
   });
+
+  $("#cpXSlider, #cpYSlider").click(function(){
+    selectedCpX = $('#cpXSlider').val()
+    selectedCpY = $('#cpYSlider').val()
+    currentFunction.setControlPointX(selectedCpX)
+    currentFunction.setControlPointY(selectedCpY)
+  });
+
+
+
+
 
 // Click buttons to activate various function modules
   currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
@@ -327,6 +408,12 @@
 
   $('#drawing-straightline').click(function(){
     currentFunction = new DrawingStraightLine(contextReal, contextDraft, selectedStrokeColour);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("enable");
+  });
+
+  $('#drawing-curve').click(function(){
+    currentFunction = new DrawingCurve(contextReal, contextDraft, selectedStrokeColour);
     $("#fillSwatch").spectrum("disable");
     $("#strokeSwatch").spectrum("enable");
   });
@@ -427,6 +514,21 @@
     currentFunction = new Spray(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
   });
 
+  $('#addText').click(function(){
+    currentFunction = new addText(contextReal, contextDraft, selectedStrokeColour);
+  });
+
+  $('#addTextInput').click(function(){
+    currentFunction = new addText(contextReal, contextDraft, selectedStrokeColour);
+  });
+
+
+
+  // Loading //
+    window.addEventListener('load', function(){
+    const loader = document.querySelector(".loader");
+    loader.className += " hidden";
+  });
   </script>
 </body>
 </html>

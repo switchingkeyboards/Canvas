@@ -2,7 +2,7 @@ class DrawingEllipse extends PaintFunction{
     constructor(contextReal, contextDraft, selectedStrokeColour, selectedFillColour){
         super();
         this.contextReal = contextReal;
-        this.contextDraft = contextDraft;            
+        this.contextDraft = contextDraft;
         this.selectedStrokeColour = selectedStrokeColour;
         this.selectedFillColour = selectedFillColour;
     }
@@ -14,7 +14,7 @@ class DrawingEllipse extends PaintFunction{
         this.origX = coord[0];
         this.origY = coord[1];
     }
-    
+
     onDragging(coord,event){
         this.contextDraft.fillStyle = this.selectedFillColour;
         this.contextDraft.strokeStyle = this.selectedStrokeColour;
@@ -38,6 +38,8 @@ class DrawingEllipse extends PaintFunction{
         this.contextReal.lineWidth = this.selectedLineWidth;
         this.contextReal.fill();
         this.contextReal.stroke();
+
+        history.push($('#canvas-real')[0].toDataURL());
     }
     onMouseLeave(){}
     onMouseEnter(){}

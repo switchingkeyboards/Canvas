@@ -37,10 +37,10 @@ class DrawingLine extends PaintFunction{
 class Spray extends DrawingLine{
     constructor(contextReal, selectedStrokeColour){
         super();
-        this.context = contextReal;            
+        this.context = contextReal;
         this.selectedStrokeColour = selectedStrokeColour;
     }
-    
+
     onMouseDown(coord,event){
         this.context.strokeStyle = this.context.fillStyle = selectedStrokeColour;
         this.context.lineWidth = this.selectedLineWidth;
@@ -50,9 +50,9 @@ class Spray extends DrawingLine{
         this.draw(coord[0],coord[1]);
     }
     onDragging(coord,event){
-        var size = document.getElementById("myRange"); 
+        var size = document.getElementById("myRange");
         var mySize = size.value;
-        this.context.lineWidth = mySize; 
+        this.context.lineWidth = mySize;
         var density = 50;
         for (var i = density; i--;){
             var radius = mySize;
@@ -75,7 +75,7 @@ class Spray extends DrawingLine{
 
     draw(x,y){
         this.context.lineTo(x,y);
-        this.context.lineWidth = this.selectedLineWidth; 
+        this.context.lineWidth = this.selectedLineWidth;
         var density = 50;
         for (var i = density; i--;){
             var radius = this.context.lineWidth;

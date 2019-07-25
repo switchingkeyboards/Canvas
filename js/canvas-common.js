@@ -7,6 +7,11 @@ let dragging = false;
 var stampId = '';
 var lastStampId = '';
 
+
+$('#cpXSlider, #cpYSlider').mouseenter(function(){
+    currentFunction.onSlider();
+});
+
 $('#canvas-draft').mousedown(function(e){
     let mouseX = e.offsetX;
     let mouseY = e.offsetY;
@@ -46,6 +51,7 @@ $('#canvas-draft').mouseenter(function(e){
 
 class PaintFunction{
     constructor(){}
+    onSlider(){}
     onMouseDown(){}
     onDragging(){}
     onMouseMove(){}
@@ -71,6 +77,18 @@ class PaintFunction{
 
     setLineWidth(width){
       this.selectedLineWidth = width
+    }
+
+    getControlPoint(){
+      return [this.selectedCpX, this.selectedCpY]
+    }
+
+    setControlPointX(x){
+      this.selectedCpX = x
+    }
+
+    setControlPointY(y){
+      this.selectedCpY = y
     }
 
 };

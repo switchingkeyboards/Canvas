@@ -69,7 +69,7 @@ h1 {
 h2 {
   font-size: 26px;
   font-weight: 300;
-  background: -webkit-linear-gradient(grey, dimgrey);
+  background: -webkit-linear-gradient(dodgerblue, cornflowerblue);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -99,6 +99,15 @@ h3 {
 
 #canvas-draft {
   background-color: transparent;
+}
+
+#addTextInput {
+  position: absolute;
+  top: 480px;
+  left: 60px;
+  height: 60px;
+  padding: 0 15px 0 15px;
+  opacity: 0.8;
 }
 
 .toolbarLeftExpand, .toolbarRightTop, .toolbarRightBottom {
@@ -169,4 +178,32 @@ img {
 #rangeTriangle {
   padding-left: 10px;
   margin-bottom: 10px;
+}
+
+#cpXSlider {
+  position: absolute;
+  top: 900px;
+  left: 180px;
+  width: 420px;
+}
+
+#cpYSlider {
+  position: absolute;
+  top: 900px;
+  left: 660px;
+  width: 420px;
+}
+
+#cpXSliderText {
+  position: absolute;
+  top: 930px;
+  left: 180px;
+  width: 420px;
+}
+
+#cpYSliderText {
+  position: absolute;
+  top: 930px;
+  left: 660px;
+  width: 420px;
 }
