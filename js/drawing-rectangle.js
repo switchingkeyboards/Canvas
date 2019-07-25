@@ -27,9 +27,9 @@ class DrawingRectangle extends PaintFunction{
 
     onMouseMove(){}
     onMouseUp(coord){
+        this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
         this.contextReal.fillStyle = this.selectedFillColour;
         this.contextReal.strokeStyle = this.selectedStrokeColour;
-        this.contextDraft.clearRect(0,0,canvasDraft.width,canvasDraft.height);
         this.contextReal.fillRect(this.origX,this.origY,coord[0]- this.origX,coord[1] - this.origY);
         this.contextReal.strokeRect(this.origX,this.origY,coord[0]- this.origX,coord[1] - this.origY);
         // History
