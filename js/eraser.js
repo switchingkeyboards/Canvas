@@ -22,7 +22,10 @@ class Eraser extends PaintFunction{
     }
 
     onMouseMove(){}
-    onMouseUp(){}
+    onMouseUp(coord){
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
     onMouseLeave(){}
     onMouseEnter(){} 
     

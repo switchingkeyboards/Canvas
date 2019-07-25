@@ -11,7 +11,7 @@ class StampGrizz extends PaintFunction {
         var img = new Image();
         img.src = './img/grizz.png';
         // this.context.drawImage(img, coord[0], coord[1]);
-        
+
         img.onload =  () => {  //arrow function: "this" in the function refers to "this" in class
         // console.log('happy')
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
@@ -32,7 +32,10 @@ class StampGrizz extends PaintFunction {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
-    onMouseUp() {}
+    onMouseUp() {
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
 }
 
 class StampPan extends PaintFunction {
@@ -43,7 +46,7 @@ class StampPan extends PaintFunction {
     onMouseDown(coord, event) {
         var img = new Image();
         img.src = './img/pan.png';
-        img.onload =  () => {  
+        img.onload =  () => {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
@@ -54,7 +57,10 @@ class StampPan extends PaintFunction {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
-    onMouseUp(){}
+    onMouseUp(){
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
 }
 
 class StampIce extends PaintFunction {
@@ -65,7 +71,7 @@ class StampIce extends PaintFunction {
     onMouseDown(coord, event) {
         var img = new Image();
         img.src = './img/ice.png';
-        img.onload =  () => {  
+        img.onload =  () => {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
@@ -76,7 +82,10 @@ class StampIce extends PaintFunction {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
-    onMouseUp() {}
+    onMouseUp() {
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
 }
 
 class StampStack extends PaintFunction {
@@ -87,7 +96,7 @@ class StampStack extends PaintFunction {
     onMouseDown(coord, event) {
         var img = new Image();
         img.src = './img/stack.png';
-        img.onload =  () => {  
+        img.onload =  () => {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
@@ -98,7 +107,10 @@ class StampStack extends PaintFunction {
             this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
-    onMouseUp() {}
+    onMouseUp() {
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
 }
 
 class StampBaby extends PaintFunction {
@@ -109,18 +121,21 @@ class StampBaby extends PaintFunction {
     onMouseDown(coord, event) {
         var img = new Image();
         img.src = './img/baby.png';
-        img.onload =  () => {  
-            this.context.drawImage(img, coord[0], coord[1], 170, 170);
+        img.onload =  () => {
+            this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
     onDragging(coord, event){
         var img = new Image();
         img.src = './img/baby.png';
         img.onload =  () => {  
-            this.context.drawImage(img, coord[0], coord[1], 170, 170);
+            this.context.drawImage(img, coord[0], coord[1], 150, 150);
         }
     }
-    onMouseUp() {}
+    onMouseUp() {
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
 }
 
 class StampSleep extends PaintFunction {
@@ -142,5 +157,8 @@ class StampSleep extends PaintFunction {
             this.context.drawImage(img, coord[0], coord[1], 160, 160);
         }
     }
-    onMouseUp() {}
+    onMouseUp() {
+        // History
+        history.push($('#canvas-real')[0].toDataURL());
+    }
 }
