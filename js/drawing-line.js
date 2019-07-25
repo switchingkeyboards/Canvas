@@ -37,10 +37,17 @@ class DrawingLine extends PaintFunction{
 class Spray extends DrawingLine{
     constructor(contextReal, selectedStrokeColour){
         super();
+<<<<<<< HEAD
         this.context = contextReal;
         this.selectedStrokeColour = selectedStrokeColour;
     }
 
+=======
+        this.context = contextReal;            
+        this.selectedStrokeColour = selectedStrokeColour;
+    }
+    
+>>>>>>> 771058d9949a7b42e4222f3fd4b89bbafd0ff3cb
     onMouseDown(coord,event){
         this.context.strokeStyle = this.context.fillStyle = selectedStrokeColour;
         this.context.lineWidth = this.selectedLineWidth;
@@ -50,9 +57,15 @@ class Spray extends DrawingLine{
         this.draw(coord[0],coord[1]);
     }
     onDragging(coord,event){
+<<<<<<< HEAD
         var size = document.getElementById("myRange");
         var mySize = size.value;
         this.context.lineWidth = mySize;
+=======
+        var size = document.getElementById("myRange"); 
+        var mySize = size.value;
+        this.context.lineWidth = mySize; 
+>>>>>>> 771058d9949a7b42e4222f3fd4b89bbafd0ff3cb
         var density = 50;
         for (var i = density; i--;){
             var radius = mySize;
@@ -75,7 +88,11 @@ class Spray extends DrawingLine{
 
     draw(x,y){
         this.context.lineTo(x,y);
+<<<<<<< HEAD
         this.context.lineWidth = this.selectedLineWidth;
+=======
+        this.context.lineWidth = this.selectedLineWidth; 
+>>>>>>> 771058d9949a7b42e4222f3fd4b89bbafd0ff3cb
         var density = 50;
         for (var i = density; i--;){
             var radius = this.context.lineWidth;
