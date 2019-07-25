@@ -14,11 +14,10 @@
 </head>
 
 <body>
-
   <!-- Loading -->
-  <!-- <div class=“loader”>
-    <img src=“img/loader.gif” alt=“Loading...” height=“20%“/>
-  </div> -->
+  <div class="loader">
+    <img src="./img/loader.gif" alt="Loading..." width="150%"/>
+</div>
 
   <!-- Use Bootstrap to structure app layout -->
 
@@ -42,7 +41,7 @@
     <button name="Rectangle" class="btn btn-light" id="drawing-rectangle"><img src="assets/square.png"></button>
     <button name="Text" class="btn btn-light"><img src="assets/text.png"></button>
     <button name="Stamp" class="btn btn-light" id="stampingButton"><img src="assets/stamp.png" id="stamping"></button>
-    <button name="Spray" class="btn btn-light" id=""><img src="assets/spray.png" id="stamping"></button>
+    <button name="Spray" class="btn btn-light" id="spray"><img src="assets/spray.png"></button>
     <button name="Image" class='btn btn-light'>
       <label for='file-upload'><img src='assets/uploadImage.png'></label>
       <input id='file-upload' type='file' accept='image/*' capture style='display:none'>
@@ -53,7 +52,7 @@
   <div id="collapseBarCircle">
     <div class='d-flex flex-row shadow-lg toolbarLeftExpand'>
       <button class="btn btn-light" id="circle"><img src="assets/circle.png" ></button>
-      <button class="btn btn-light" id="ecllipse"><img src="assets/ellipse.png" ></button>
+      <button class="btn btn-light" id="ellipse"><img src="assets/ellipse.png" ></button>
     </div>
   </div>
 
@@ -117,6 +116,7 @@
   <script type='text/javascript' src="./js/stamp-image.js"></script>
   <script type='text/javascript' src="./js/drawing-straightLine.js"></script>
   <script type='text/javascript' src="./js/drawing-fillup.js"></script>
+  <script type='text/javascript' src="./js/draw-ellipse.js"></script>
 
 <!-- ======================================================================= -->
 <!-- ======================================================================= -->
@@ -126,9 +126,8 @@
 <!-- ======================================================================= -->
 
   <script type='text/javascript'>
-
-// Loading Screen
-  window.addEventListener("load", function(){
+  // Loading //
+    window.addEventListener('load', function(){
     const loader = document.querySelector(".loader");
     loader.className += " hidden";
   });
@@ -420,6 +419,13 @@
     contextReal.clearRect(0, 0, canvasDraft.width, canvasDraft.height);
   });
 
+  $('#ellipse').click(function(){
+    currentFunction = new DrawingEllipse(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+  });
+
+  $('#spray').click(function(){
+    currentFunction = new Spray(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+  });
 
   </script>
 </body>

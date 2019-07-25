@@ -1,7 +1,7 @@
 * {
   border-radius: 0 !important;
 }
-
+/***~~~~~~ Loading ~~~~~***/
 .loader {
   position: fixed;
   z-index: 2000;
@@ -22,9 +22,14 @@
 
 @keyframes fadeOut {
   100% {
-    opacity: 0;
-    visibility: hidden;
+      opacity: 0;
+      visibility: hidden;
   }
+}
+
+.loader img{
+  height: 200px;
+  width: 200px;
 }
 
 body, html {
