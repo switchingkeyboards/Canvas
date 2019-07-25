@@ -257,9 +257,22 @@
 // Spectrum JS Colour Picker Initialization
 
   $("#strokeSwatch").spectrum({
+    showButtons: false,
+    showPalette: true,
+    showSelectionPalette: true,
+    showAlpha: true,
+    palette: [ ],
+    localStorageKey: "spectrum.homepage"
   });
 
   $("#fillSwatch").spectrum({
+   showButtons: false,
+   showPalette: true,
+   showSelectionPalette: true,
+   disabled: true,
+   showAlpha: true,
+   palette: [ ],
+   localStorageKey: "spectrum.homepage"
   });
 
 // Default starting colours;
@@ -282,6 +295,22 @@
     // console.log(currentFunction.constructor.name);
   });
 
+  $("#strokeSwatch").on('move.spectrum', function(e, tinycolour) {
+    selectedStrokeColour = tinycolour.toHexString()
+    currentFunction.setStrokeColour(selectedStrokeColour)
+    // console.log('Current Stroke Colour: ' + currentFunction.getColour()[1])
+  });
+
+  $("#fillSwatch").on('move.spectrum', function(e, tinycolour) {
+    selectedFillColour = tinycolour.toHexString()
+    currentFunction.setFillColour(selectedFillColour)
+    // console.log('Current Fill Colour: ' + currentFunction.getColour()[0])
+    // console.log(currentFunction.constructor.name);
+  });
+
+
+
+
 // Store new line width
   $("#myRange").click(function(){
     selectedLineWidth = document.getElementById("myRange").value
@@ -293,59 +322,87 @@
   // console.log(currentFunction.constructor.name);
   $('#drawing-line').click(function(){
     currentFunction = new DrawingLine(contextReal, selectedStrokeColour);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("enable");
   });
 
   $('#drawing-straightline').click(function(){
     currentFunction = new DrawingStraightLine(contextReal, contextDraft, selectedStrokeColour);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("enable");
   });
 
   $('#drawing-rectangle').click(function(){
     currentFunction = new DrawingRectangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+    $("#fillSwatch").spectrum("enable");
+    $("#strokeSwatch").spectrum("enable");
   });
 
   $('#drawing-circle').click(function(){
     currentFunction = new DrawingCircle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+    $("#fillSwatch").spectrum("enable");
+    $("#strokeSwatch").spectrum("enable");
   });
 
   $('#drawing-triangle').click(function(){
     currentFunction = new DrawingTriangle(contextReal, contextDraft, selectedStrokeColour, selectedFillColour);
+    $("#fillSwatch").spectrum("enable");
+    $("#strokeSwatch").spectrum("enable");
   });
 
   $('#eraser').click(function(){
     currentFunction = new Eraser(contextReal, contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("disable");
   });
 
   $('#grizz').click(function(){
     // console.log('stamping')
     currentFunction = new StampGrizz(contextReal, contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("disable");
   });
 
   $('#pan').click(function(){
     currentFunction = new StampPan(contextReal, contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("disable");
   });
 
   $('#ice').click(function(){
     currentFunction = new StampIce(contextReal, contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("disable");
   });
 
   $('#stack').click(function(){
     currentFunction = new StampStack(contextReal, contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("disable");
   });
 
   $('#baby').click(function(){
     currentFunction = new StampBaby(contextReal, contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("disable");
   });
 
   $('#sleep').click(function(){
     currentFunction = new StampSleep(contextReal, contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("disable");
   });
 
   $('#drawing-straightLine').click(function(){
     currentFunction = new DrawingStraightLine(contextReal,contextDraft);
+    $("#fillSwatch").spectrum("disable");
+    $("#strokeSwatch").spectrum("enable");
   });
 
   $('#drawing-fill').click(function(){
     currentFunction = new BucketFill(contextReal,contextDraft);
+    $("#strokeSwatch").spectrum("disable");
+    $("#fillSwatch").spectrum("enable");
   });
 
   $('#file-upload').change(UploadImage);
