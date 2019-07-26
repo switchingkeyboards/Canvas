@@ -36,6 +36,7 @@
     <button name="Brush" class="btn btn-light active" id="drawing-line"><img src="assets/brush.png"></button>
     <button name="Eraser" class="btn btn-light" id="eraser"><img src="assets/eraser.png"></button>
     <button name="Fill" class="btn btn-light"><img src="assets/paint.png"></button>
+    <img src="assets/probanner.png" id="proBanner">
     <button name="Line" class="btn btn-light" id="drawing-straightline"><img src="assets/line.png"></button>
     <button name="Curve" class="btn btn-light" id="drawing-curve"><img src="assets/curve.png"></button>
     <button name="Triangle" class="btn btn-light" id="drawing-triangle"><img src="assets/triangle.png"></button>
@@ -102,13 +103,6 @@
     <button class="btn btn-light" id="history-redo"><img src="assets/redo.png"></button>
     <button href="" class="btn btn-light " id="save"><img src="assets/save.png"></button>
     <button class="btn btn-light"><img src="assets/trash.png" id="trash"></button>
-  </div>
-
-  <div>
-    <input type="range" class="form-control-range" id="cpXSlider" value="450" min="0" max="900">
-    <p class="text-muted text-center font-weight-light" id="cpXSliderText">control point X</p>
-    <input type="range" class="form-control-range" id="cpYSlider" value="360" min="0" max="720">
-    <p class="text-muted text-center font-weight-light" id="cpYSliderText">control point Y</p>
   </div>
 
   <!-- jQuery and BootStrap JS -->
@@ -210,24 +204,6 @@
 // Text input field appear on hover
 
   $('#addTextInput').hide();
-  $('#cpXSlider').hide();
-  $('#cpYSlider').hide();
-  $('#cpXSliderText').hide();
-  $('#cpYSliderText').hide();
-
-  $('#drawing-curve').on('click', function(){
-    $('#cpXSlider').show();
-    $('#cpYSlider').show();
-    $('#cpXSliderText').show();
-    $('#cpYSliderText').show();
-  });
-
-  $('.toolbarLeft button, .toolbarLeftExpand button').not('#drawing-curve').on('click', function(){
-    $('#cpXSlider').hide();
-    $('#cpYSlider').hide();
-    $('#cpXSliderText').hide();
-    $('#cpYSliderText').hide();
-  });
 
 
 
@@ -247,6 +223,30 @@
   $('#addTextInput').on('mouseleave', function(){
     $('#addTextInput').hide();
   });
+
+
+
+
+  $('#addText').on('click', function(){
+    $('#sliderText').html('font size')
+    $('#rangeTriangle').attr('src', 'assets/textSize.png')
+  });
+
+  $('#addTextInput').on('click', function(){
+    $('#sliderText').html('font size')
+    $('#rangeTriangle').attr('src', 'assets/textSize.png')
+  });
+
+
+  $('.toolbarLeft button, .toolbarLeftExpand button').not('#addText').on('click', function(){
+    $('#sliderText').html('stroke width')
+    $('#sliderText').html('stroke width')
+    $('#rangeTriangle').attr('src', 'assets/strokeWidth.png')
+  });
+
+
+
+
 
 // Change stamp icon to selected stamp
 
@@ -376,11 +376,7 @@
   $(document).ready(function(){
     selectedLineWidth = $('#myRange').val()
     currentFunction.setLineWidth(selectedLineWidth)
-    selectedCpX = $('#cpXSlider').val()
-    selectedCpY = $('#cpYSlider').val()
-    console.log(selectedCpX, selectedCpY)
-    currentFunction.setControlPointX(selectedCpX)
-    currentFunction.setControlPointY(selectedCpY)
+
   });
 
   $("#myRange").click(function(){
@@ -388,12 +384,6 @@
     currentFunction.setLineWidth(selectedLineWidth)
   });
 
-  $("#cpXSlider, #cpYSlider").click(function(){
-    selectedCpX = $('#cpXSlider').val()
-    selectedCpY = $('#cpYSlider').val()
-    currentFunction.setControlPointX(selectedCpX)
-    currentFunction.setControlPointY(selectedCpY)
-  });
 
 
 

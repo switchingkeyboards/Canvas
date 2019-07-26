@@ -48,6 +48,12 @@ body {
   background-attachment: fixed;
 }
 
+#proBanner {
+  position: absolute;
+  top: 120px;
+  width: 25px;
+}
+
 .logo img{
   position: absolute;
   top: 20px;
